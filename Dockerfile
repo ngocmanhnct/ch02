@@ -1,6 +1,6 @@
 # GIAI ĐOẠN 1: Xây dựng (Build) tệp .WAR bằng Ant
 # ... (Phần này giữ nguyên) ...
-FROM openjdk:11-jdk AS build
+FROM eclipse-temurin:11-jdk AS build
 # ... (Phần này giữ nguyên) ...
 RUN ant dist
 
