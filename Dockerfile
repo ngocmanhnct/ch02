@@ -1,4 +1,5 @@
-
+# GIAI ĐOẠN 1: Xây dựng (Build) tệp .WAR bằng Ant
+# Sử dụng image Tomcat làm nền tảng build
 FROM tomcat:9.0-jdk11-openjdk AS build
 
 # Cài đặt Ant (công cụ build) vào trong container Tomcat
@@ -10,9 +11,15 @@ WORKDIR /app
 # Sao chép toàn bộ mã nguồn của bạn (từ GitHub) vào thư mục /app
 COPY . .
 
+# Chạy lệnh Ant để build dự án
+#
+# ✨ THAY ĐỔI: Thêm cờ '-Dlibs.javaee-api-7.0.classpath=""'
+# (Định nghĩa biến còn thiếu là rỗng để "lừa" tác vụ copy)
+#
 RUN ant dist \
     -Dj2ee.server.home=/usr/local/tomcat \
-    -Dlibs.CopyLibs.classpath=/app/nb-ant-libs/org-netbeans-modules-java-j2seproject-copylibstask.jar
+    -Dlibs.CopyLibs.classpath=/app/nb-ant-libs/org-netbeans-modules-java-j2seproject-copylibstask.jar \
+    -Dlibs.javaee-api-7.0.classpath=""
 
 # GIAI ĐOẠN 2: Chạy (Run) ứng dụng
 # (Phần này giữ nguyên, nó sử dụng một image Tomcat mới và sạch)
