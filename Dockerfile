@@ -13,13 +13,15 @@ COPY . .
 
 # Chạy lệnh Ant để build dự án
 #
-# ✨ THAY ĐỔI: Thêm cờ '-Dlibs.javaee-api-7.0.classpath=""'
-# (Định nghĩa biến còn thiếu là rỗng để "lừa" tác vụ copy)
+# ✨ THAY ĐỔI: Thêm cờ '-Djavac.source' và '-Djavac.target'
+# (Ép Ant biên dịch cho Java 1.8 (Java 8) thay vì Java 24)
 #
 RUN ant dist \
     -Dj2ee.server.home=/usr/local/tomcat \
     -Dlibs.CopyLibs.classpath=/app/nb-ant-libs/org-netbeans-modules-java-j2seproject-copylibstask.jar \
-    -Dlibs.javaee-api-7.0.classpath=""
+    -Dlibs.javaee-api-7.0.classpath="" \
+    -Djavac.source=1.8 \
+    -Djavac.target=1.8
 
 # GIAI ĐOẠN 2: Chạy (Run) ứng dụng
 # (Phần này giữ nguyên, nó sử dụng một image Tomcat mới và sạch)
