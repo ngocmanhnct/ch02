@@ -10,7 +10,9 @@ WORKDIR /app
 # Sao chép toàn bộ mã nguồn của bạn (từ GitHub) vào thư mục /app
 COPY . .
 
-RUN ant dist -Dj2ee.server.home=/usr/local/tomcat
+RUN ant dist \
+    -Dj2ee.server.home=/usr/local/tomcat \
+    -Dlibs.CopyLibs.classpath=/app/nb-ant-libs/org-netbeans-modules-java-j2seproject-copylibstask.jar
 
 # GIAI ĐOẠN 2: Chạy (Run) ứng dụng
 # (Phần này giữ nguyên, nó sử dụng một image Tomcat mới và sạch)
